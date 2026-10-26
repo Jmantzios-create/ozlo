@@ -1,0 +1,295 @@
+
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#080b18">
+  <meta name="description" content="OZLO — Des outils simples pour donner vie à tes idées.">
+  <title>OZLO — Your tools. Your world.</title>
+  <style>
+    :root {
+      color-scheme: dark;
+      --bg: #080b18;
+      --panel: #11172a;
+      --line: #242d48;
+      --text: #f5f7ff;
+      --muted: #9ba8c7;
+      --blue: #62a5ff;
+      --purple: #a68aff;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: radial-gradient(ellipse at 50% 0%, #19244b 0, var(--bg) 55%);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      min-height: 100vh;
+    }
+    button, input, select { font: inherit; }
+    button { cursor: pointer; }
+    .wrap { width: min(1050px, 92%); margin: auto; }
+    header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 22px 0; border-bottom: 1px solid #ffffff12;
+    }
+    .brand { display: flex; align-items: center; gap: 10px; font-size: 25px; font-weight: 900; letter-spacing: 3px; }
+    .orb {
+      width: 35px; height: 35px; border-radius: 50%;
+      border: 7px solid transparent;
+      background: linear-gradient(var(--bg),var(--bg)) padding-box,
+        linear-gradient(135deg,#61d9ff,#7775ff,#d18cff) border-box;
+      box-shadow: 0 0 22px #6e8cff65;
+      transform: rotate(-25deg);
+    }
+    .tag { color: var(--muted); font-size: 11px; letter-spacing: 2px; }
+    .hero { text-align: center; padding: 66px 0 35px; }
+    .pill { display: inline-block; padding: 8px 13px; border: 1px solid var(--line); border-radius: 99px; color: #b6c9ff; font-size: 12px; }
+    h1 { font-size: clamp(38px, 8vw, 66px); letter-spacing: -2px; margin: 20px 0 12px; }
+    h1 span { background: linear-gradient(90deg,#73d8ff,#a9a0ff); color: transparent; background-clip: text; }
+    .hero p { color: var(--muted); line-height: 1.7; max-width: 500px; margin: auto; }
+    .search { margin: 27px auto 0; max-width: 510px; }
+    input, select {
+      width: 100%; background: #0d1222; border: 1px solid var(--line);
+      color: var(--text); border-radius: 12px; padding: 13px 14px; outline: none;
+    }
+    input:focus, select:focus { border-color: var(--blue); }
+    .section-title { display: flex; justify-content: space-between; gap: 12px; align-items: center; margin: 28px 0 16px; }
+    h2 { font-size: 21px; margin: 0; }
+    .muted { color: var(--muted); font-size: 13px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fit,minmax(min(100%,245px),1fr)); gap: 15px; padding-bottom: 60px; }
+    .card { background: linear-gradient(145deg,#141c33,#0d1221); border: 1px solid var(--line); border-radius: 18px; padding: 20px; }
+    .card:hover { border-color: #637edb; }
+    .emoji { font-size: 26px; }
+    .card h3 { margin: 13px 0 8px; }
+    .card p { color: var(--muted); font-size: 14px; line-height: 1.6; min-height: 44px; }
+    .btn { border: 0; background: linear-gradient(100deg,#438df5,#8d73f4); color: white; padding: 12px 15px; border-radius: 11px; font-weight: 700; }
+    .btn.secondary { background: #1a2440; border: 1px solid #354467; }
+    .btn:active { transform: scale(.98); }
+    .tool { display: none; max-width: 600px; margin: 20px auto 70px; }
+    .tool.active { display: block; }
+    .tool .card { padding: 24px; }
+    .fields { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin: 18px 0; }
+    .field { display: grid; gap: 8px; color: var(--muted); font-size: 13px; }
+    .result { background: #0b1120; border: 1px solid var(--line); border-radius: 12px; padding: 16px; margin-top: 16px; line-height: 1.8; overflow-wrap: anywhere; }
+    .task-row { display: flex; align-items: center; gap: 10px; padding: 12px 0; border-bottom: 1px solid var(--line); }
+    .task-row input { width: auto; }
+    .task-row span { flex: 1; overflow-wrap: anywhere; }
+    .task-row.done span { text-decoration: line-through; color: var(--muted); }
+    .idea { border-left: 2px solid var(--purple); padding: 10px 13px; background: #17152c; border-radius: 0 10px 10px 0; margin-top: 10px; line-height: 1.5; }
+    footer { border-top: 1px solid #ffffff12; padding: 25px 0; color: var(--muted); font-size: 12px; text-align: center; }
+    @media(max-width:480px) { .hero { padding-top: 48px; } .fields { grid-template-columns: 1fr; } .tag { font-size: 9px; letter-spacing: 1px; } }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <div class="brand"><span class="orb"></span> OZLO</div>
+      <div class="tag">YOUR TOOLS. YOUR WORLD.</div>
+    </header>
+
+    <main>
+      <section id="home">
+        <div class="hero">
+          <span class="pill">✦ TON ESPACE D'OUTILS</span>
+          <h1>Transforme tes idées en <span>actions.</span></h1>
+          <p>Des outils simples pour t'organiser, calculer et imaginer la suite.</p>
+          <div class="search">
+            <input id="search" type="search" placeholder="⌕  Rechercher un outil..." aria-label="Rechercher un outil">
+          </div>
+        </div>
+
+        <div class="section-title">
+          <h2>Explorer les outils</h2>
+          <span class="muted" id="count">3 outils</span>
+        </div>
+        <div class="grid" id="grid">
+          <article class="card" data-search="calculatrice pourcentage réduction calcul">
+            <div class="emoji">🧮</div>
+            <h3>Calculatrice de pourcentage</h3>
+            <p>Calcule rapidement un pourcentage ou le prix après une réduction.</p>
+            <button class="btn" onclick="openTool('calculator')">Utiliser l'outil ↗</button>
+          </article>
+          <article class="card" data-search="organisateur tâches organisation productivité liste">
+            <div class="emoji">✓</div>
+            <h3>Organisateur</h3>
+            <p>Note tes tâches et coche-les quand elles sont terminées.</p>
+            <button class="btn" onclick="openTool('tasks')">Utiliser l'outil ↗</button>
+          </article>
+          <article class="card" data-search="idées créativité projets site marque">
+            <div class="emoji">✧</div>
+            <h3>Générateur d'idées</h3>
+            <p>Découvre trois pistes pour lancer ou développer un projet.</p>
+            <button class="btn" onclick="openTool('ideas')">Utiliser l'outil ↗</button>
+          </article>
+        </div>
+        <p class="muted" id="empty" hidden>Aucun outil trouvé. Essaie un autre mot.</p>
+      </section>
+
+      <section class="tool" id="calculator">
+        <div class="card">
+          <button class="btn secondary" onclick="goHome()">← Retour aux outils</button>
+          <h2 style="margin-top:22px">🧮 Calculatrice de pourcentage</h2>
+          <p class="muted">Calcule le montant d'un pourcentage et le prix après réduction.</p>
+          <div class="fields">
+            <label class="field">Montant (€)
+              <input id="amount" type="number" min="0" step="any" placeholder="Ex. 80" inputmode="decimal">
+            </label>
+            <label class="field">Pourcentage (%)
+              <input id="percent" type="number" min="0" max="100" step="any" placeholder="Ex. 25" inputmode="decimal">
+            </label>
+          </div>
+          <button class="btn" onclick="calculate()">Calculer</button>
+          <div class="result" id="calcResult" aria-live="polite">Entre un montant et un pourcentage.</div>
+        </div>
+      </section>
+
+      <section class="tool" id="tasks">
+        <div class="card">
+          <button class="btn secondary" onclick="goHome()">← Retour aux outils</button>
+          <h2 style="margin-top:22px">✓ Organisateur</h2>
+          <p class="muted">Ajoute une tâche, puis coche-la une fois terminée.</p>
+          <form id="taskForm" style="display:flex;gap:8px;margin:18px 0">
+            <input id="taskInput" maxlength="100" required placeholder="Ex. Préparer mon projet..." aria-label="Nouvelle tâche">
+            <button class="btn" type="submit">Ajouter</button>
+          </form>
+          <div id="taskList"></div>
+          <div class="result" id="taskProgress">0 tâche terminée</div>
+        </div>
+      </section>
+
+      <section class="tool" id="ideas">
+        <div class="card">
+          <button class="btn secondary" onclick="goHome()">← Retour aux outils</button>
+          <h2 style="margin-top:22px">✧ Générateur d'idées</h2>
+          <p class="muted">Des pistes créatives prédéfinies pour débloquer ton imagination — ce n'est pas une IA.</p>
+          <div class="fields">
+            <label class="field">Type de projet
+              <select id="ideaType">
+                <option value="site">Site web</option>
+                <option value="marque">Marque</option>
+                <option value="projet">Projet</option>
+                <option value="fonction">Fonctionnalité</option>
+              </select>
+            </label>
+            <label class="field">Sujet (facultatif)
+              <input id="ideaTopic" maxlength="60" placeholder="Ex. musique">
+            </label>
+          </div>
+          <button class="btn" onclick="generateIdeas()">Générer des idées</button>
+          <div id="ideaResult" aria-live="polite"></div>
+        </div>
+      </section>
+    </main>
+    <footer>OZLO © 2026 · Première version · Tes outils, ton univers.</footer>
+  </div>
+
+  <script>
+    const $ = id => document.getElementById(id);
+
+    function openTool(id) {
+      $('home').style.display = 'none';
+      document.querySelectorAll('.tool').forEach(el => el.classList.remove('active'));
+      $(id).classList.add('active');
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    function goHome() {
+      document.querySelectorAll('.tool').forEach(el => el.classList.remove('active'));
+      $('home').style.display = 'block';
+      window.scrollTo({top: 0, behavior: 'smooth'});
+    }
+
+    $('search').addEventListener('input', event => {
+      const query = event.target.value.trim().toLocaleLowerCase('fr');
+      let visible = 0;
+      document.querySelectorAll('#grid .card').forEach(card => {
+        const show = (card.innerText + ' ' + card.dataset.search).toLocaleLowerCase('fr').includes(query);
+        card.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      $('count').textContent = visible + (visible > 1 ? ' outils' : ' outil');
+      $('empty').hidden = visible !== 0;
+    });
+
+    function calculate() {
+      const amount = Number($('amount').value);
+      const percent = Number($('percent').value);
+      if ($('amount').value === '' || $('percent').value === '' ||
+          !Number.isFinite(amount) || !Number.isFinite(percent) ||
+          amount < 0 || percent < 0 || percent > 100) {
+        $('calcResult').textContent = 'Entre un montant positif et un pourcentage entre 0 et 100.';
+        return;
+      }
+      const value = amount * percent / 100;
+      $('calcResult').textContent =
+        percent + ' % de ' + amount.toLocaleString('fr-FR', {style:'currency',currency:'EUR'}) +
+        ' = ' + value.toLocaleString('fr-FR', {style:'currency',currency:'EUR'}) +
+        '. Prix après réduction : ' + (amount - value).toLocaleString('fr-FR', {style:'currency',currency:'EUR'}) + '.';
+    }
+
+    let tasks = [];
+    function renderTasks() {
+      const list = $('taskList');
+      list.replaceChildren();
+      tasks.forEach((task, index) => {
+        const row = document.createElement('label');
+        row.className = 'task-row' + (task.done ? ' done' : '');
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = task.done;
+        checkbox.addEventListener('change', () => {
+          tasks[index].done = checkbox.checked;
+          renderTasks();
+        });
+        const span = document.createElement('span');
+        span.textContent = task.text;
+        const remove = document.createElement('button');
+        remove.type = 'button';
+        remove.className = 'btn secondary';
+        remove.textContent = 'Supprimer';
+        remove.setAttribute('aria-label', 'Supprimer ' + task.text);
+        remove.addEventListener('click', () => {
+          tasks.splice(index, 1);
+          renderTasks();
+        });
+        row.append(checkbox, span, remove);
+        list.append(row);
+      });
+      const completed = tasks.filter(task => task.done).length;
+      $('taskProgress').textContent = completed + ' / ' + tasks.length + ' tâche(s) terminée(s). Les tâches restent en mémoire tant que cette page est ouverte.';
+    }
+
+    $('taskForm').addEventListener('submit', event => {
+      event.preventDefault();
+      const text = $('taskInput').value.trim();
+      if (!text) return;
+      tasks.push({text, done:false});
+      $('taskInput').value = '';
+      renderTasks();
+    });
+
+    function generateIdeas() {
+      const type = $('ideaType').value;
+      const topic = $('ideaTopic').value.trim();
+      const ideas = {
+        site: ['Un tableau de bord qui regroupe les outils utiles.', 'Un espace qui permet de sauvegarder ses favoris.', 'Un guide interactif qui aide à choisir le bon outil.'],
+        marque: ['Créer un slogan court et mémorable.', 'Construire une identité visuelle cohérente.', 'Lancer une collection autour d’un besoin précis.'],
+        projet: ['Tester une version simple auprès de quelques personnes.', 'Découper le projet en petites étapes réalisables.', 'Créer une liste de retours pour améliorer la prochaine version.'],
+        fonction: ['Ajouter un mode sombre et clair.', 'Permettre d’exporter le résultat en texte.', 'Créer une aide rapide pour les nouveaux utilisateurs.']
+      };
+      const results = ideas[type].map((idea, index) =>
+        (topic ? 'Autour de « ' + topic + ' » : ' : '') + idea
+      );
+      const container = $('ideaResult');
+      container.replaceChildren();
+      results.forEach((idea, index) => {
+        const item = document.createElement('div');
+        item.className = 'idea';
+        item.textContent = (index + 1) + '. ' + idea;
+        container.append(item);
+      });
+    }
+  </script>
+</body>
+</html>
